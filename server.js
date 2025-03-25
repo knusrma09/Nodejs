@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 // Setup session
 app.use(session({
