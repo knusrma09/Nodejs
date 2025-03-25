@@ -5,7 +5,11 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h2>Welcome to Our App</h2>
-    <p><a href="/login">Login</a> | <a href="/signup">Signup</a></p>
+    <%- include('./navbar.ejs') %>
+    <div class="container">
+        <h2>Welcome, <%= user ? user.email : 'Guest' %></h2>
+        <p>This is the protected home page!</p>
+        <p><a href="/logout">Logout</a></p>
+    </div>
 </body>
 </html>

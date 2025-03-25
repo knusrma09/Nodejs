@@ -1,67 +1,63 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const session = require("express-session");
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const session = require('express-session');
 
 const app = express();
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+
+// Serve static files (CSS, images, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.set("view engine", "ejs");
 
-app.use(
-  session({
-    secret: "secretkey",
+// Setup session
+app.use(session({
+    secret: 'your_secret_key',
     resave: false,
-    saveUninitialized: true,
-  })
-);
-
-// Dummy Users Data
-const users = [];
+    saveUninitialized: true
+}));
 
 // Routes
-app.get("/", (req, res) => res.render("home"));
-
-app.get("/login", (req, res) => res.render("login", { error: "" }));
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const user = users.find((u) => u.email === email && u.password === password);
-
-  if (user) {
-    req.session.user = user;
-    res.redirect("/dashboard");
-  } else {
-    res.render("login", { error: "Invalid credentials" });
-  }
+app.get('/', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.render('home', { user: req.session.user });
 });
 
-app.get("/signup", (req, res) => res.render("signup", { error: "" }));
-app.post("/signup", (req, res) => {
-  const { email, password } = req.body;
-
-  if (users.find((u) => u.email === email)) {
-    return res.render("signup", { error: "User already exists!" });
-  }
-
-  users.push({ email, password });
-  res.redirect("/login");
+app.get('/login', (req, res) => res.render('login', { error: null }));
+app.post('/login', (req, res) => {
+    const { email } = req.body;
+    req.session.user = { email };
+    res.redirect('/signup');
 });
 
-// Protected Route
-app.get("/dashboard", (req, res) => {
-  if (!req.session.user) return res.redirect("/login");
-  res.render("dashboard", { user: req.session.user });
+app.get('/signup', (req, res) => res.render('signup', { error: null }));
+app.post('/signup', (req, res) => {
+    req.session.user = { email: req.body.email };
+    res.redirect('/');
 });
 
-app.get("/profile", (req, res) => {
-  if (!req.session.user) return res.redirect("/login");
-  res.render("profile", { user: req.session.user });
+app.get('/shop', (req, res) => res.render('shop'));
+app.get('/vet', (req, res) => res.render('vet'));
+app.get('/contact', (req, res) => res.render('contact'));
+app.get('/cart', (req, res) => res.render('cart'));
+app.get('/forgot-password', (req, res) => res.render('forgot-password', { error: null }));
+
+app.post('/vet', (req, res) => {
+    console.log('Vet Appointment:', req.body);
+    res.send('Appointment booked successfully!');
 });
 
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => res.redirect("/login"));
+app.post('/contact', (req, res) => {
+    console.log('Contact Form:', req.body);
+    res.send('Message sent successfully!');
 });
 
 // Start Server
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
