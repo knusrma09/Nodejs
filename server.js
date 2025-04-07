@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-
+const mongoose = require('mongoose');   
 const app = express();
+
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
