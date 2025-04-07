@@ -2,14 +2,28 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
-const mongoose = require('mongoose');   
+const mongoose = require('mongoose');
 const app = express();
 
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/petshopDB', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));
+
+// Define User schema
+const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
+});
+const User = mongoose.model('User', userSchema);
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 
-// Serve static files (CSS, images, etc.)
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware
@@ -32,16 +46,34 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => res.render('login', { error: null }));
-app.post('/login', (req, res) => {
-    const { email } = req.body;
-    req.session.user = { email };
-    res.redirect('/signup');
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email, password });
+    if (user) {
+        req.session.user = user;
+        res.redirect('/');
+    } else {
+        res.render('login', { error: 'Invalid email or password' });
+    }
 });
 
 app.get('/signup', (req, res) => res.render('signup', { error: null }));
-app.post('/signup', (req, res) => {
-    req.session.user = { email: req.body.email };
-    res.redirect('/');
+
+app.post('/signup', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.render('signup', { error: 'User already exists' });
+        }
+        const newUser = new User({ email, password });
+        await newUser.save();
+        req.session.user = newUser;
+        res.redirect('/');
+    } catch (error) {
+        res.render('signup', { error: 'Signup failed. Try again.' });
+    }
 });
 
 app.get('/shop', (req, res) => res.render('shop'));

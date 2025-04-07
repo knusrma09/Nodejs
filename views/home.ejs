@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
+    <title>Pet Shop | Home</title>
     <link rel="stylesheet" href="/style.css">
     <style>
         body {
@@ -10,6 +10,8 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
+        /* Hero Section */
         .hero {
             position: relative;
             width: 100%;
@@ -23,7 +25,7 @@
         }
         .hero-content {
             background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            padding: 20px 40px;
             border-radius: 10px;
         }
         .hero h1 {
@@ -47,18 +49,172 @@
         .btn:hover {
             background: #cc5500;
         }
+
+        /* Services */
+        .services {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: white;
+        }
+        .services h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .service-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .service-card {
+            background-color: #fff3e6;
+            padding: 20px;
+            border-radius: 12px;
+            width: 280px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .service-card h3 {
+            margin-top: 10px;
+            font-size: 22px;
+            color: #333;
+        }
+        .service-card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Featured Pets */
+        .pets {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+        .pets h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .pet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .pet-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .pet-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .pet-card .info {
+            padding: 15px;
+            text-align: center;
+        }
+        .pet-card .info h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        /* Contact CTA */
+        .cta {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #ff6600;
+            color: white;
+        }
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .cta a {
+            padding: 12px 28px;
+            background: white;
+            color: #ff6600;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .cta a:hover {
+            background: #ffe0cc;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: #ccc;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <%- include('./navbar.ejs') %>
+
     <div class="hero">
-        <img src="./white Scottish Fold.jpg"class="hero-image">
         <div class="hero-content">
-            <h1>Love, Care Your Pet</h1>
-            <p>People love their pets like their children. Get the best care services.</p>
-            <a href="#" class="btn">Learn More</a>
+            <h1>Love & Care for Your Pet</h1>
+            <p>We provide everything your furry friend needs.</p>
+            <a href="/shop" class="btn">Shop Now</a>
         </div>
     </div>
-    
+
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3>Pet Grooming</h3>
+                <p>Top-notch grooming services to keep your pets fresh and happy.</p>
+            </div>
+            <div class="service-card">
+                <h3>Vet Checkups</h3>
+                <p>Regular health checkups by certified veterinarians.</p>
+            </div>
+            <div class="service-card">
+                <h3>Adoption Help</h3>
+                <p>We help you adopt or rehome pets with love and responsibility.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pets">
+        <h2>Featured Pets</h2>
+        <div class="pet-grid">
+            <div class="pet-card">
+                <img src="/images/cute cats.jpg" alt="Cute Cat">
+                <div class="info">
+                    <h3>Cats</h3>
+                </div>
+            </div>
+            <div class="pet-card">
+                <img src="/images/pomeranian.jpg" alt="Happy Dog">
+                <div class="info">
+                    <h3>Family Dogs</h3>
+                </div>
+            </div>
+            <div class="pet-card">
+                <img src="/images/pittbull.jpg" alt="Fluffy Bunny">
+                <div class="info">
+                    <h3>Guard Dogs</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Have a Question or Need Help?</h2>
+        <a href="/contact">Contact Us</a>
+    </section>
+
+    <footer>
+        © 2025 Pet Shop. All rights reserved.
+    </footer>
 </body>
 </html>
