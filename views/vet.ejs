@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Veterinary Services</title>
-    <link rel="stylesheet" href="/style.css">
+  <title>Veterinary Services</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/vet.css">
 </head>
 <body>
-    <%- include('./navbar.ejs') %>
-    <div class="container">
-        <h2>Veterinary Services</h2>
-        <p>Our expert vets are here to provide the best care for your pets. Book an appointment today!</p>
-        <form action="/vet" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="date" name="date" required>
-            <textarea name="message" placeholder="Describe your pet's issue" required></textarea>
-            <button type="submit">Book Appointment</button>
-        </form>
+  <%- include('./navbar.ejs') %>
+
+  <section class="vet-hero">
+    <div class="overlay">
+      <h1>Expert Veterinary Services</h1>
+      <p>Compassionate care for your beloved pets. Book an appointment with our certified vets.</p>
     </div>
+  </section>
+
+  <div class="container vet-container">
+    <h2>Book an Appointment</h2>
+  <form action="/vet" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
+    <input type="date" name="date" required><br>
+    <textarea name="message" placeholder="Describe your pet's issue" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+  </div>
+
+  <section class="cta">
+    <h2>Have a Question or Need Help?</h2>
+    <a href="/contact">Contact Us</a>
+</section>
+
+<footer>
+    © 2025 Pet Shop. All rights reserved.
+</footer>
 </body>
 </html>

@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="/style.css">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/contact.css">
 </head>
 <body>
-    <%- include('./navbar.ejs') %>
-    <div class="container">
-        <h2>Contact Us</h2>
-        <p>Have any questions? Get in touch with us!</p>
-        <form action="/contact" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+  <%- include('./navbar.ejs') %>
+
+  <section class="contact-hero">
+    <div class="overlay">
+      <h1>Contact Us</h1>
+      <p>We’re here to answer your questions and help you care for your pets.</p>
     </div>
+  </section>
+
+  <div class="container contact-container">
+    <h2>Get in Touch</h2>
+    <form action="/contact" method="POST" class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <section class="cta">
+    <h2>Need Immediate Help?</h2>
+    <a href="/vet">Book a Vet Appointment</a>
+  </section>
+
+  <footer>
+    © 2025 Pet Shop. All rights reserved.
+  </footer>
 </body>
 </html>

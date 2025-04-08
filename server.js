@@ -3,7 +3,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const vetRoutes = require('./routes/vetRoutes');
 const app = express();
+const Appointment = require('./models/appointment');
+//middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/petshopDB', {
@@ -13,19 +20,18 @@ mongoose.connect('mongodb://localhost:27017/petshopDB', {
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.log(err));
 
+//routes
+app.use('/api', vetRoutes);
 // Define User schema
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 });
 const User = mongoose.model('User', userSchema);
-
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
-
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -86,12 +92,33 @@ app.post('/vet', (req, res) => {
     console.log('Vet Appointment:', req.body);
     res.send('Appointment booked successfully!');
 });
-
 app.post('/contact', (req, res) => {
     console.log('Contact Form:', req.body);
     res.send('Message sent successfully!');
 });
+// Middleware
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
 
+// Routes
+app.get('/', (req, res) => {
+res.render('vet.ejs', { user: req.session.user });
+});
+
+app.post('/vet', async (req, res) => {
+    try {
+      const { name, email, date, message } = req.body;
+      const appointment = await Appointment.create({ name, email, date, message });
+      console.log("📥 Saved to petshopdb:", appointment);
+      res.send("✅ Appointment booked!");
+    } catch (err) {
+      console.error("❌ Error:", err);
+      res.status(500).send("Something went wrong.");
+    }
+  });
+  
+  
 // Start Server
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

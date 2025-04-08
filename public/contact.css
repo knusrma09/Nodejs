@@ -1,0 +1,131 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Hero Section */
+  .contact-hero {
+    background: url('/images/contact-hero.jpg') no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+  
+  .contact-hero .overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 12px;
+  }
+  
+  .contact-hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+  
+  .contact-hero p {
+    font-size: 18px;
+  }
+  
+  /* Container */
+  .contact-container {
+    max-width: 800px;
+    margin: 60px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  }
+  
+  .contact-container h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #ff6600;
+    outline: none;
+  }
+  
+  .contact-form button {
+    background-color: #ff6600;
+    color: white;
+    padding: 14px;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .contact-form button:hover {
+    background-color: #e65c00;
+  }
+  
+  /* CTA */
+  .cta {
+    text-align: center;
+    background-color: #ff6600;
+    color: white;
+    padding: 50px 20px;
+    margin-top: 60px;
+  }
+  
+  .cta h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .cta a {
+    background: white;
+    color: #ff6600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  
+  .cta a:hover {
+    background: #ffe0cc;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #222;
+    color: #ccc;
+    font-size: 14px;
+  }
+  
